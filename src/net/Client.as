@@ -137,8 +137,8 @@ package net
 			var username:* ="auto_9eGzX1quua";
 			var password:* ="76385d18e7b38e8f6b229ff14bddf4be";
 			
-			//var username:* ="";
-			//var password:* ="";
+//			var username:* ="";
+//			var password:* ="";
 			this.roomId =int(Param.RoomId);
 			
 			var _loc_6:* = new Encode();

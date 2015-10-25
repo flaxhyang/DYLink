@@ -595,6 +595,18 @@ package net
 		private function buyDeserve(param1:String) : void
 		{
 			//$.jscall("cq_obj.buy_msg", param1);
+			try
+			{
+				var _loc_2:Decode = new Decode();
+				_loc_2.Parse(param1);
+				var id:String = _loc_2.GetItem("sid");
+				var nick:String=_loc_2.GetItem("src_ncnm");
+				ServerGift(id,nick,15000);
+			} 
+			catch(error:Error) 
+			{
+				
+			}
 			return;
 		}// end function
 		
@@ -725,13 +737,17 @@ package net
 				num=520;
 				ServerGift(id,nick,num);
 			}else if(type=="3"){
-			
+				num=100;
+				ServerGift(id,nick,num);
 			}else if(type=="4"){
-				
+				num=6000;
+				ServerGift(id,nick,num);
 			}else if(type=="5"){
-				
+				num=100000;
+				ServerGift(id,nick,num);
 			}else if(type=="6"){
-				
+				num=500000;
+				ServerGift(id,nick,num);
 			}
 			
 			//-------------------------------------------------------------------------------------------------yzy
