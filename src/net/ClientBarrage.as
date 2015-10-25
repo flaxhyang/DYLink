@@ -254,6 +254,7 @@ package net
 			}
 			else if (_loc_3 == "bc_buy_deserve")
 			{
+				//酬勤
 				this.buyDeserve(param1._param as String);
 			}
 			else if (_loc_3 == "common_call")
@@ -718,12 +719,22 @@ package net
 			if(type=="1"){
 				//trace("100:"+nick);
 				num=100;
+				ServerGift(id,nick,num);
 			}else if(type=="2"){
 				//trace("520:"+nick)
 				num=520;
+				ServerGift(id,nick,num);
+			}else if(type=="3"){
+			
+			}else if(type=="4"){
+				
+			}else if(type=="5"){
+				
+			}else if(type=="6"){
+				
 			}
+			
 			//-------------------------------------------------------------------------------------------------yzy
-			ServerGift(id,nick,num);
 			return;
 		}// end function
 		

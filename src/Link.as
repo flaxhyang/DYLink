@@ -2,6 +2,8 @@ package
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.utils.clearInterval;
+	import flash.utils.setInterval;
 	
 	import net.Client;
 	
@@ -37,7 +39,7 @@ package
 		}
 		
 		public function sendMsg(msg:String):void{
-			//trace("service linkclass s="+msg);
+			trace("service linkclass s="+msg);
 			this._client.SendChatContent(msg);
 		}
 		
@@ -66,24 +68,24 @@ package
 		
 		private function OnConn(param1:Event) : void
 		{
-//			if (this._checkOnlineSeed)
-//			{
-//				clearInterval(this._checkOnlineSeed);
-//			}
-//			this._checkOnlineSeed = setInterval(this.CheckOnline, 120000);
+			if (this._checkOnlineSeed)
+			{
+				clearInterval(this._checkOnlineSeed);
+			}
+			this._checkOnlineSeed = setInterval(this.CheckOnline, 120000);
 //			this._client.UserLogin2();
 			this._client.UserLogin(No);
 			return;
 		}
 		
-//		private function CheckOnline() : void
-//		{
-//			if (!this._client._conn || !this._client._conn.is_connected)
-//			{
-//				this.link();
-//			}
-//			return;
-//		}
+		private function CheckOnline() : void
+		{
+			if (!this._client._conn || !this._client._conn.is_connected)
+			{
+				this.link();
+			}
+			return;
+		}
 		
 		private static var _instant:Link;
 		
