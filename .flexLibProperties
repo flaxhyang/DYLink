@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="net.Client"/>
+    <classEntry path="user.RoomUser"/>
+    <classEntry path="utils.TcpEvent"/>
+    <classEntry path="utils.Encode"/>
+    <classEntry path="utils.Decode"/>
+    <classEntry path="user.Param"/>
+    <classEntry path="utils.Util"/>
+    <classEntry path="utils.LocalStorage"/>
+    <classEntry path="utils.GlobalData"/>
+    <classEntry path="net.TcpClient"/>
+    <classEntry path="net.ClientBarrage"/>
+    <classEntry path="utils.EventCenter"/>
+    <classEntry path="utils.ObjectEvent"/>
+    <classEntry path="Link"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
