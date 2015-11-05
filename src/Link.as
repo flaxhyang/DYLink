@@ -39,8 +39,12 @@ package
 		}
 		
 		public function sendMsg(msg:String):void{
-			trace("service linkclass s="+msg);
+			//trace("service linkclass s="+msg);
 			this._client.SendChatContent(msg);
+		}
+		
+		public function setTHwelcome(fun:Function):void{
+			this._client.welcomeFun=fun;
 		}
 		
 		private function dmLinkOk():void{

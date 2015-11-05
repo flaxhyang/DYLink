@@ -53,6 +53,7 @@ package net
 		public var reserviceMsg:Function;
 		public var giftMsg:Function;
 		public var dmLinkOk:Function;
+		public var welcomeFun:Function;
 		
 		public function Client()
 		{
@@ -86,14 +87,14 @@ package net
 		public function UserLogin2() : void
 		{
 			//			猫小胖杂货
-			//var username:* ="auto_9eGzX1quua";
-			//var password:* ="76385d18e7b38e8f6b229ff14bddf4be";
+			var username:* ="auto_9eGzX1quua";
+			var password:* ="76385d18e7b38e8f6b229ff14bddf4be";
 			
 			//var username:* ="auto_zo7QX4VmlX";
 			//var password:* ="25f9e794323b453885f5181f1b624d0b";
 			
-			var username:* ="";
-			var password:* ="";
+//			var username:* ="";
+//			var password:* ="";
 			this.roomId =int(Param.RoomId);
 			
 			
@@ -134,6 +135,7 @@ package net
 			//var username:* ="auto_zo7QX4VmlX";
 			//var password:* ="25f9e794323b453885f5181f1b624d0b";
 			
+			//猫小胖
 			var username:* ="auto_9eGzX1quua";
 			var password:* ="76385d18e7b38e8f6b229ff14bddf4be";
 			
@@ -1206,6 +1208,7 @@ package net
 				this.barrage_Conn.OnChatMsg = this.ServerChatContent;
 				this.barrage_Conn.GiftMsg=this.giftMsg;
 				this.barrage_Conn.dmLinkOk=this.dmLinkOk;
+				this.barrage_Conn.THWelcome=this.welcomeFun;
 				this.barrage_Conn.ConnectNewServer();
 			}
 			return;

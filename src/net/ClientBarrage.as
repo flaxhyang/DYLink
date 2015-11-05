@@ -3,7 +3,6 @@ package net
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;
-	import flash.external.ExternalInterface;
 	import flash.utils.Timer;
 	import flash.utils.clearInterval;
 	import flash.utils.clearTimeout;
@@ -16,7 +15,6 @@ package net
 	import utils.Decode;
 	import utils.Encode;
 	import utils.EventCenter;
-	import utils.GlobalData;
 	import utils.TcpEvent;
 	
 	public class ClientBarrage extends EventDispatcher
@@ -46,6 +44,7 @@ package net
 		
 		public var OnChatMsg:Function;
 		public var GiftMsg:Function;
+		public var THWelcome:Function;
 		public var dmLinkOk:Function;
 		
 		
@@ -254,6 +253,7 @@ package net
 			}
 			else if (_loc_3 == "bc_buy_deserve")
 			{
+				trace(param1._param)
 				//酬勤
 				this.buyDeserve(param1._param as String);
 			}
@@ -444,7 +444,7 @@ package net
 			}
 			var _loc_8:* = _loc_7.Get_SttString();
 			//$.jscall("console.log", "setadm： [%s]", _loc_8);
-			ExternalInterface.call("return_setadmin", _loc_8);
+//			ExternalInterface.call("return_setadmin", _loc_8);
 			return;
 		}// end function
 		
@@ -589,6 +589,9 @@ package net
 			var _loc_18:* = _loc_17.Get_SttString();
 			//$.jscall("console.log", "newuinfo： [%s]", _loc_18);
 			//$.jscall("remind_obj.senior_remind", _loc_17.Get_SttString());
+			
+			THWelcome(String(_loc_6));
+			
 			return;
 		}// end function
 		
@@ -597,11 +600,40 @@ package net
 			//$.jscall("cq_obj.buy_msg", param1);
 			try
 			{
-				var _loc_2:Decode = new Decode();
-				_loc_2.Parse(param1);
-				var id:String = _loc_2.GetItem("sid");
-				var nick:String=_loc_2.GetItem("src_ncnm");
-				ServerGift(id,nick,15000);
+				var dec1:Decode = new Decode();
+				dec1.Parse(param1);
+				var level:String = dec1.GetItem("lev");
+				var sui:String=dec1.GetItem("sui");
+				var dec2:Decode=new Decode();
+				dec2.Parse(sui);
+				var nick:String=dec2.GetItem("nick");
+				var id:String=dec2.GetItem("id");
+				trace(level)
+				var yw:int;
+				switch(level)
+				{
+					case 1:
+					{
+						yw=15000;
+						break;
+					}
+					case 2:
+					{
+						yw=30000;
+						break;
+					}
+					case 3:
+					{
+						yw=50000;
+						break;
+					}
+						
+					default:
+					{
+						break;
+					}
+				}
+				ServerGift(id,nick,yw);
 			} 
 			catch(error:Error) 
 			{
