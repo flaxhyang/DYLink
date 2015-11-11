@@ -590,7 +590,8 @@ package net
 			//$.jscall("console.log", "newuinfo： [%s]", _loc_18);
 			//$.jscall("remind_obj.senior_remind", _loc_17.Get_SttString());
 			
-			THWelcome(String(_loc_6));
+			//---------------------------------------------------------------------------------------------------------------------------------
+//			THWelcome(String(_loc_6));
 			
 			return;
 		}// end function
