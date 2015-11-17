@@ -17,6 +17,7 @@ package
 		private var roomId:String;
 		private var getMsgFun:Function;
 		private var getGiftFun:Function;
+		private var welcomefun:Function;
 		
 		private var check:CheckAS=CheckAS.instant;
 		
@@ -45,7 +46,7 @@ package
 		}
 		
 		public function setTHwelcome(fun:Function):void{
-			this._client.welcomeFun=fun;
+			welcomefun=fun;
 		}
 		//-----------------------------------------------------------------------------------------
 		private function dmLinkOk():void{
@@ -68,6 +69,7 @@ package
 			this._client.reserviceMsg=getMsgFun;
 			this._client.giftMsg=getGiftFun;
 			this._client.dmLinkOk=dmLinkOk;
+			this._client.welcomeFun=welcomefun;
 			this._client.ConnectServer(Param.ServerIp, Param.ServerPort, this.OnConn);
 		}
 		
