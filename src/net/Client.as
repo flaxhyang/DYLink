@@ -84,45 +84,45 @@ package net
 		}// end function
 		
 		
-//		public function UserLogin2() : void
-//		{
-//			//			猫小胖杂货
-//			//var username:* ="auto_9eGzX1quua";
-//			//var password:* ="76385d18e7b38e8f6b229ff14bddf4be";
-//			
-//			//var username:* ="auto_zo7QX4VmlX";
-//			//var password:* ="25f9e794323b453885f5181f1b624d0b";
-//			
-//			var username:* ="";
-//			var password:* ="";
-//			this.roomId =int(Param.RoomId);
-//			
-//			
-//			var _loc_6:* = new Encode();
-//			_loc_6.AddItem("type", "loginreq");
-//			_loc_6.AddItem("username", username);
-//			_loc_6.AddItem("password", password);
-//			_loc_6.AddItem("roompass", Param.PASS_VERIFY);
-//			_loc_6.AddItem_int("roomid",this.roomId);
-//			
-//			var _loc_7:String="";
-//			if (_loc_7 == "")
-//			{
-//				_loc_7 = Util.createGuid();
-//				
-//				LocalStorage.setValue("GUID",_loc_7);
-//			}
-//			_loc_6.AddItem("devid",_loc_7);
-//			var _loc_8:* = new Date();
-//			var _loc_9:int =int( _loc_8.time / 1000);
-//			var _loc_10:* = Util.getLoginValidationStr(String(_loc_9),_loc_7);
-//			
-//			_loc_6.AddItem("rt",_loc_9 +"");
-//			_loc_6.AddItem("vk",_loc_10);
-//			var _loc_11:* = _loc_6.Get_SttString();
-//			this._conn.sendmsg(_loc_11);
-//			return;
-//		}
+		public function UserLogin2() : void
+		{
+			//			猫小胖杂货
+			//var username:* ="auto_9eGzX1quua";
+			//var password:* ="76385d18e7b38e8f6b229ff14bddf4be";
+			
+			//var username:* ="auto_zo7QX4VmlX";
+			//var password:* ="25f9e794323b453885f5181f1b624d0b";
+			
+			var username:* ="";
+			var password:* ="";
+			this.roomId =int(Param.RoomId);
+			
+			
+			var _loc_6:* = new Encode();
+			_loc_6.AddItem("type", "loginreq");
+			_loc_6.AddItem("username", username);
+			_loc_6.AddItem("password", password);
+			_loc_6.AddItem("roompass", Param.PASS_VERIFY);
+			_loc_6.AddItem_int("roomid",this.roomId);
+			
+			var _loc_7:String="";
+			if (_loc_7 == "")
+			{
+				_loc_7 = Util.createGuid();
+				
+				LocalStorage.setValue("GUID",_loc_7);
+			}
+			_loc_6.AddItem("devid",_loc_7);
+			var _loc_8:* = new Date();
+			var _loc_9:int =int( _loc_8.time / 1000);
+			var _loc_10:* = Util.getLoginValidationStr(String(_loc_9),_loc_7);
+			
+			_loc_6.AddItem("rt",_loc_9 +"");
+			_loc_6.AddItem("vk",_loc_10);
+			var _loc_11:* = _loc_6.Get_SttString();
+			this._conn.sendmsg(_loc_11);
+			return;
+		}
 		
 		public function UserLogin(nun:int) : void
 		{

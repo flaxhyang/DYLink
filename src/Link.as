@@ -28,6 +28,7 @@ package
 		{
 			
 		}
+		//-----------------------------------------------------------------------------------------
 		
 		public function initService(roomid:int,msgfun:Function,giftfun:Function,nun:int=0):void{
 			roomId=String(roomid);
@@ -46,7 +47,7 @@ package
 		public function setTHwelcome(fun:Function):void{
 			this._client.welcomeFun=fun;
 		}
-		
+		//-----------------------------------------------------------------------------------------
 		private function dmLinkOk():void{
 			this.dispatchEvent(new Event(LINK_OK));
 		}
@@ -77,8 +78,14 @@ package
 				clearInterval(this._checkOnlineSeed);
 			}
 			this._checkOnlineSeed = setInterval(this.CheckOnline, 120000);
-//			this._client.UserLogin2();
-			this._client.UserLogin(No);
+			
+			if(No==0){
+				//猫小胖
+				this._client.UserLogin(No);
+			}else{
+				//匿名 监测用
+				this._client.UserLogin2();
+			}
 			return;
 		}
 		

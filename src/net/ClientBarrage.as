@@ -591,7 +591,7 @@ package net
 			//$.jscall("remind_obj.senior_remind", _loc_17.Get_SttString());
 			
 			//---------------------------------------------------------------------------------------------------------------------------------
-//			THWelcome(String(_loc_6));
+			THWelcome(String(_loc_6));
 			
 			return;
 		}// end function
@@ -609,21 +609,21 @@ package net
 				dec2.Parse(sui);
 				var nick:String=dec2.GetItem("nick");
 				var id:String=dec2.GetItem("id");
-				trace(level)
+				//trace(level)
 				var yw:int;
 				switch(level)
 				{
-					case 1:
+					case "1":
 					{
 						yw=15000;
 						break;
 					}
-					case 2:
+					case "2":
 					{
 						yw=30000;
 						break;
 					}
-					case 3:
+					case "3":
 					{
 						yw=50000;
 						break;
