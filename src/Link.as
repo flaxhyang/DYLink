@@ -23,7 +23,7 @@ package
 		
 		public static const LINK_OK:String="link_Ok";
 		
-		private var No:int;
+//		private var No:int;
 		
 		public function Link()
 		{
@@ -31,11 +31,10 @@ package
 		}
 		//-----------------------------------------------------------------------------------------
 		
-		public function initService(roomid:int,msgfun:Function,giftfun:Function,nun:int=0):void{
+		public function initService(roomid:int,msgfun:Function=null,giftfun:Function=null):void{
 			roomId=String(roomid);
 			getMsgFun=msgfun;
 			getGiftFun=giftfun;
-			No=nun;
 			check.addEventListener(CheckAS.CHECK_COMPLETE_EVENT,checkcomplete);
 			check.sendChecking(roomId,String(new Date().time));
 		}
@@ -48,6 +47,15 @@ package
 		public function setTHwelcome(fun:Function):void{
 			welcomefun=fun;
 		}
+		
+		public function setGetMsg(fun:Function):void{
+			getMsgFun=fun;
+		}
+		
+		public function setGift(fun:Function):void{
+			getGiftFun=fun;
+		}
+		
 		//-----------------------------------------------------------------------------------------
 		private function dmLinkOk():void{
 			this.dispatchEvent(new Event(LINK_OK));
@@ -81,13 +89,13 @@ package
 			}
 			this._checkOnlineSeed = setInterval(this.CheckOnline, 120000);
 			
-			if(No==0){
+//			if(No==0){
 				//猫小胖
-				this._client.UserLogin(No);
-			}else{
+				this._client.UserLogin(0);
+//			}else{
 				//匿名 监测用
-				this._client.UserLogin2();
-			}
+//				this._client.UserLogin2();
+//			}
 			return;
 		}
 		
