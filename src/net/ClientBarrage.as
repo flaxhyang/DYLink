@@ -43,6 +43,8 @@ package net
 		
 		
 		public var OnChatMsg:Function;
+		public var newOnChatMsg:Function;
+		
 		public var GiftMsg:Function;
 		public var THWelcome:Function;
 		public var dmLinkOk:Function;
@@ -137,7 +139,7 @@ package net
 			var _loc_1:* = new Encode();
 			_loc_1.AddItem("type", "joingroup");
 			_loc_1.AddItem_int("rid", this.roomId);
-			_loc_1.AddItem_int("gid", this.my_gid);
+			_loc_1.AddItem_int("gid", -9999);
 			var _loc_2:* = _loc_1.Get_SttString();
 			if (this._conn2 == null)
 			{
@@ -198,122 +200,191 @@ package net
 			return;
 		}// end function
 		
-		private function ParseMsg(param1:TcpEvent) : void
-		{
-			var _loc_2:* = new Decode();
-			_loc_2.Parse(param1._param as String);
-			var _loc_3:* = _loc_2.GetItem("type");
-			//trace("返回值"+_loc_3)
-			if (_loc_3 != "keeplive" && _loc_3 != "chatmessage" && _loc_3 != "donateres" && _loc_3 != "dgn")
-			{
-				//$.jscall("console.log", "弹幕 网络数据 [%s]", param1._param as String);
-			}
-			if (_loc_3 == "loginres")
-			{
+		
+		private function ParseMsg(param:TcpEvent):void{
+			var _loc_2:Decode = new Decode();
+			_loc_2.Parse(param._param as String);
+			var types:String= _loc_2.GetItem("type");
+			if(types=="loginres"){
 				this.ServerLoginInfo(_loc_2);
-				trace("ok")
-			}
-			else if (_loc_3 == "chatmessage")
-			{
-				this.ServerChatContent(_loc_2);
-			}
-			else if (_loc_3 == "keeplive")
-			{
+				trace("loginres ok")
+			}else if(types=="keeplive"){
 				this.ServerKeepLive(_loc_2);
 			}
-			else if (_loc_3 == "error")
-			{
-				this.ServerError(_loc_2);
-				trace("error")
+			
+			//弹幕信息
+			if(types=="chatmessage"){
+				this.ServerChatContent(_loc_2);
+			}else if(types=="chatmsg"){
+			    this.newServerChatContent(_loc_2);
 			}
-			else if (_loc_3 == "donateres")
-			{
+			
+			//鱼丸(礼物)
+			if(types=="dgn"){
+				this.currentRoomGiftBroadcast(param._param as String);
+			}else if(types=="donateres"){
 				this.fishPresent(_loc_2);
-			}
-			else if (_loc_3 == "setadminres")
-			{
-				this.ServerSetAdmin(_loc_2);
-			}
-			else if (_loc_3 == "blackres")
-			{
-				this.ServerBlackUser(_loc_2);
-			}
-			else if (_loc_3 == "rss")
-			{
-				this.ServerShowStatus(_loc_2);
-			}
-			else if (_loc_3 == "rsm")
-			{
-				this.systemBroadcast(_loc_2);
-			}
-			else if (_loc_3 == "userenter")
-			{
-				//高级用户进入
-				this.ServerUserEnter(_loc_2);
-			}
-			else if (_loc_3 == "bc_buy_deserve")
-			{
-				trace(param1._param)
-				//酬勤
-				this.buyDeserve(param1._param as String);
-			}
-			else if (_loc_3 == "common_call")
-			{
-				this.baoxueTime(_loc_2);
-			}
-			else if (_loc_3 == "ranklist")
-			{
-				this.rewardListResponse(_loc_2);
-			}
-			else if (_loc_3 == "filterblackad")
-			{
-				this.maskQrCodeNotify(_loc_2);
-			}
-			else if (_loc_3 == "hits_effect")
-			{
-				this.batterFxEffect(param1._param as String);
-			}
-			else if (_loc_3 == "onlinegift")
-			{
-				//领取 鱼丸
-				this.onGiftNotify(_loc_2);
-			}
-			else
-			{
-				if (_loc_3 == "spbc")
-				{
-					return;
-				}
-				if (_loc_3 == "dgn")
-				{
-					this.currentRoomGiftBroadcast(param1._param as String);
-				}
-				else if (_loc_3 == "ssd")
-				{
-					this.superDanmuBroadcast(_loc_2);
-				}
-				else
-				{
-					if (_loc_3 == "gbbc")
-					{
-						return;
-					}
-					if (_loc_3 == "gbbr")
-					{
-						return;
-					}
-					if (_loc_3 == "ggbb")
-					{
-						return;
-					}
-					if (_loc_3 == "gbip")
-					{
-						return;
-					}
+			}else if(types=="dgb"){
+				var id:String= _loc_2.GetItem("uid");
+				var nick:String=_loc_2.GetItem("nn");
+				
+				var type:String=_loc_2.GetItem("gs");
+				var num:int;
+				if(type=="1"){
+					//trace("100:"+nick);
+					num=100;
+					ServerGift(id,nick,num);
+				}else if(type=="2"){
+					//trace("520:"+nick)
+					num=520;
+					ServerGift(id,nick,num);
+				}else if(type=="3"){
+					num=100;
+					ServerGift(id,nick,num);
+				}else if(type=="4"){
+					num=6000;
+					ServerGift(id,nick,num);
+				}else if(type=="5"){
+					num=100000;
+					ServerGift(id,nick,num);
+				}else if(type=="6"){
+					num=500000;
+					ServerGift(id,nick,num);
 				}
 			}
-			return;
-		}// end function
+			
+			
+			//用户进入
+			if(types=="uenter"){
+				var thuid:String=_loc_2.GetItem("uid");
+				var thnick:String=_loc_2.GetItem("nn");
+			}
+			
+			//酬勤
+			if(types=="bc_buy_deserve"){
+				buyDeserve(param._param as String)
+			}
+			
+		}
+		
+		
+//		private function ParseMsg(param1:TcpEvent) : void
+//		{
+//			var _loc_2:* = new Decode();
+//			_loc_2.Parse(param1._param as String);
+//			var _loc_3:* = _loc_2.GetItem("type");
+//			trace("返回值"+_loc_3)
+//			if (_loc_3 != "keeplive" && _loc_3 != "chatmessage" && _loc_3 != "donateres" && _loc_3 != "dgn")
+//			{
+//				
+//				trace("console.log", "弹幕 网络数据 [%s]", param1._param as String);
+//			}
+//			if (_loc_3 == "loginres")
+//			{
+//				this.ServerLoginInfo(_loc_2);
+//				trace("ok")
+//			}
+//			else if (_loc_3 == "chatmessage" || _loc_3 == "chatmsg")
+//			{
+//				this.ServerChatContent(_loc_2);
+//			}
+//			else if (_loc_3 == "keeplive")
+//			{
+//				this.ServerKeepLive(_loc_2);
+//			}
+//			else if (_loc_3 == "error")
+//			{
+//				this.ServerError(_loc_2);
+//				trace("error")
+//			}
+//			else if (_loc_3 == "donateres")
+//			{
+//				this.fishPresent(_loc_2);
+//			}
+//			else if (_loc_3 == "setadminres")
+//			{
+//				this.ServerSetAdmin(_loc_2);
+//			}
+//			else if (_loc_3 == "blackres")
+//			{
+//				this.ServerBlackUser(_loc_2);
+//			}
+//			else if (_loc_3 == "rss")
+//			{
+//				this.ServerShowStatus(_loc_2);
+//			}
+//			else if (_loc_3 == "rsm")
+//			{
+//				this.systemBroadcast(_loc_2);
+//			}
+//			else if (_loc_3 == "userenter")
+//			{
+//				//高级用户进入
+//				this.ServerUserEnter(_loc_2);
+//			}
+//			else if (_loc_3 == "bc_buy_deserve")
+//			{
+//				trace(param1._param)
+//				//酬勤
+//				this.buyDeserve(param1._param as String);
+//			}
+//			else if (_loc_3 == "common_call")
+//			{
+//				this.baoxueTime(_loc_2);
+//			}
+//			else if (_loc_3 == "ranklist")
+//			{
+//				this.rewardListResponse(_loc_2);
+//			}
+//			else if (_loc_3 == "filterblackad")
+//			{
+//				this.maskQrCodeNotify(_loc_2);
+//			}
+//			else if (_loc_3 == "hits_effect")
+//			{
+//				this.batterFxEffect(param1._param as String);
+//			}
+//			else if (_loc_3 == "onlinegift")
+//			{
+//				//领取 鱼丸
+//				this.onGiftNotify(_loc_2);
+//			}
+//			else
+//			{
+//				if (_loc_3 == "spbc")
+//				{
+//					return;
+//				}
+//				if (_loc_3 == "dgn")
+//				{
+//					this.currentRoomGiftBroadcast(param1._param as String);
+//				}
+//				else if (_loc_3 == "ssd")
+//				{
+//					this.superDanmuBroadcast(_loc_2);
+//				}
+//				else
+//				{
+//					if (_loc_3 == "gbbc")
+//					{
+//						return;
+//					}
+//					if (_loc_3 == "gbbr")
+//					{
+//						return;
+//					}
+//					if (_loc_3 == "ggbb")
+//					{
+//						return;
+//					}
+//					if (_loc_3 == "gbip")
+//					{
+//						return;
+//					}
+//				}
+//			}
+//			return;
+//		}// end function
 		
 		private function ServerLoginInfo(param1:Decode) : void
 		{
@@ -361,11 +432,16 @@ package net
 			return;
 		}
 		
+		
+		private function newServerChatContent(param1:Decode):void{
+			this.newOnChatMsg(param1);
+		}
+		
 		//-----------------------------------------------------------------
 		// yzy gift
 		//-----------------------------------------------------------------
 		private function ServerGift(id:String,nick:String,num:int=100):void{
-			trace(nick,num)
+//			trace(nick,num)
 			this.GiftMsg(id,nick,num);
 		}
 		

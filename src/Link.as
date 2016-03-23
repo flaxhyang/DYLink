@@ -33,8 +33,8 @@ package
 		
 		public function initService(roomid:int,msgfun:Function=null,giftfun:Function=null):void{
 			roomId=String(roomid);
-			getMsgFun=msgfun;
-			getGiftFun=giftfun;
+//			getMsgFun=msgfun;
+//			getGiftFun=giftfun;
 			check.addEventListener(CheckAS.CHECK_COMPLETE_EVENT,checkcomplete);
 			check.sendChecking(roomId,String(new Date().time));
 		}

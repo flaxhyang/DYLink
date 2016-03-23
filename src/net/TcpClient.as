@@ -137,7 +137,7 @@ package net
 			
 			private function closeHandler(param1:Event) : void
 			{
-				//$.jscall("console.log", "Tcp Close [%s]", param1.toString());
+				trace("console.log", "Tcp Close [%s]", param1.toString());
 				this.dispatchEvent(new TcpEvent(TcpEvent.Closed));
 				this.close();
 				return;
@@ -145,7 +145,7 @@ package net
 			
 			private function connectHandler(param1:Event) : void
 			{
-				//$.jscall("console.log", "Tcp Connected [%s]", param1.toString());
+				trace("console.log", "Tcp Connected [%s]", param1.toString());
 				this.is_connected = true;
 				this.dispatchEvent(new TcpEvent(TcpEvent.Conneted));
 				return;
@@ -153,7 +153,7 @@ package net
 			
 			private function ioErrorHandler(param1:IOErrorEvent) : void
 			{
-				//$.jscall("console.log", "Tcp Error IO [%s]", param1.toString());
+				trace("console.log", "Tcp Error IO [%s]", param1.toString());
 				this.dispatchEvent(new TcpEvent(TcpEvent.Error));
 				this.close();
 				return;
@@ -161,7 +161,7 @@ package net
 			
 			private function securityErrorHandler(param1:SecurityErrorEvent) : void
 			{
-				//$.jscall("console.log", "Tcp Error Security [%s]", param1.toString());
+				trace("console.log", "Tcp Error Security [%s]", param1.toString());
 				this.dispatchEvent(new TcpEvent(TcpEvent.Error));
 				this.close();
 				return;

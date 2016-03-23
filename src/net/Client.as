@@ -901,6 +901,13 @@ package net
 			return;
 		}
 		
+		private function newServerChatContent(param1:Decode):void{
+			var id:String=param1.GetItem("uid");
+			var nick:String=param1.GetItem("nn");
+			var s:String=param1.GetItem("txt");
+			reserviceMsg(int(id),nick,s);
+		}
+		
 		private function ServerChatContent(param1:Decode) : void
 		{
 			var _loc_22:Encode;
@@ -1206,6 +1213,8 @@ package net
 				this.barrage_Conn.roomId = this.roomId;
 				this.barrage_Conn.serverArray = this.serverArray;
 				this.barrage_Conn.OnChatMsg = this.ServerChatContent;
+				this.barrage_Conn.newOnChatMsg=this.newServerChatContent;
+				
 				this.barrage_Conn.GiftMsg=this.giftMsg;
 				this.barrage_Conn.dmLinkOk=this.dmLinkOk;
 				this.barrage_Conn.THWelcome=this.welcomeFun;
