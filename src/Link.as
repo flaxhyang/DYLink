@@ -23,7 +23,7 @@ package
 		
 		public static const LINK_OK:String="link_Ok";
 		
-//		private var No:int;
+		private var No:int;
 		
 		public function Link()
 		{
@@ -31,7 +31,8 @@ package
 		}
 		//-----------------------------------------------------------------------------------------
 		
-		public function initService(roomid:int,msgfun:Function=null,giftfun:Function=null):void{
+		public function initService(roomid:int,msgfun:Function=null,giftfun:Function=null,no:int=0):void{
+			this.No=no;
 			roomId=String(roomid);
 //			getMsgFun=msgfun;
 //			getGiftFun=giftfun;
@@ -89,13 +90,13 @@ package
 			}
 			this._checkOnlineSeed = setInterval(this.CheckOnline, 120000);
 			
-//			if(No==0){
+			if(No==0){
 				//猫小胖
 				this._client.UserLogin(0);
-//			}else{
+			}else{
 				//匿名 监测用
-//				this._client.UserLogin2();
-//			}
+				this._client.UserLogin2();
+			}
 			return;
 		}
 		
